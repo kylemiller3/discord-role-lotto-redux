@@ -149,15 +149,14 @@ const go$ = filt => handler$('!lotto go')
         })
     )
 
+const get_new_winners = winners => next => 
+    [next].concat(winners.slice(1).filter(winner => 
+        winner != next
+    ))
 const zero_or_one_winner = go$(obj => obj.online_winners.length <= 1)
     .subscribe(obj => {
-        const current_winner = obj.online_winners[0]
-        const next_winner = random(obj.members)
-        const append_list = obj.settings.winners.filter(winner => 
-            winner != next_winner && 
-            winner != current_winner
-        )
-        const new_winners = [next_winner].concat(append_list)
+        const new_winners = 
+            get_new_winners(obj.settings.winners)(random(obj.members))
         const new_settings = update(obj.settings)({
             winners: new_winners
         })
@@ -168,13 +167,8 @@ const zero_or_one_winner = go$(obj => obj.online_winners.length <= 1)
 
 const more_than_one_winner = go$(obj => obj.online_winners.length > 1)
     .subscribe(obj => {
-        const current_winner = obj.online_winners[0]
-        const next_winner = obj.online_winners[1]
-        const append_list = obj.settings.winners.filter(winner => 
-            winner != next_winner && 
-            winner != current_winner
-        )
-        const new_winners = [next_winner].concat(append_list)
+        const new_winners = 
+            get_new_winners(obj.settings.winners)(obj.online_winners[1])
         const new_settings = update(obj.settings)({
             winners: new_winners
         })
@@ -259,7 +253,7 @@ handler$('!lotto set role ')
         logger.debug(JSON.stringify(new_settings))
     })
     
-handler$('!lotto get hours')
+handler$('!lotto get hour')
     .pipe(
         map(obj => obj = {
             msg: obj.msg,
