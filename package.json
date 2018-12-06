@@ -1,16 +1,16 @@
 {
   "name": "discord-role-lotto",
   "version": "1.0.0",
-  "description": "Assigns a role to a random guild member.",
+  "description": "Assigns a role to a random guild member. Functionally.",
   "main": "lotto.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kylemiller3/discord-role-lotto"
+    "url": "git+https://github.com/kylemiller3/discord-role-lotto-redux"
   },
   "author": "Kyle Miller <kylemiller3@my.unt.edu>",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/kylemiller3/discord-role-lotto/issues"
+    "url": "https://github.com/kylemiller3/discord-role-lotto-redux/issues"
   },
   "dependencies": {
     "discord.js": "^11.4.2",
